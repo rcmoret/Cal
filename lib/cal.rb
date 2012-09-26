@@ -9,7 +9,7 @@ end
 
 class Individual_month
   
-  def initialize( year , month )
+  def initialize(year, month)
     @year = year
     @month = month
   end
@@ -108,7 +108,7 @@ class Individual_month
     integer_as_string = ""
     given_integer <= 9 ? integer_as_string = " " + given_integer.to_s : integer_as_string = given_integer.to_s
   end
-  
+
   def print_first_line_of_dates
     # Each week day b/f the first day of the week will need a 3 space buffer
     output = " " * (3 * week_day_of_first_of_month)
@@ -141,12 +141,16 @@ class Individual_month
     # number_days_in_this_month = self.number_of_days_in_given_month
     single_line = ""
     k = 1
-    while day_of_the_month <= self.number_of_days_in_given_month
+    while day_of_the_month <= number_of_days_in_given_month
       single_line += adjust_day_of_month_string(day_of_the_month)
-      single_line += " " if (k % 7 != 0 && day_of_the_month != self.number_of_days_in_given_month)
+      single_line += " " if (k % 7 != 0 && day_of_the_month != number_of_days_in_given_month)
       # If the day inserted is the last day of the week OR the last day of the month,
       # then insert the string into the array and reset the string
-      if (k % 7 == 0 || day_of_the_month == self.number_of_days_in_given_month)
+      if (k % 7 == 0 || day_of_the_month == number_of_days_in_given_month)
+        if single_line.length != line_length
+          spaces_to_add = line_length - single_line.length
+          single_line += " " * spaces_to_add
+        end
         individual_lines << single_line
         single_line = ""
       end
@@ -155,13 +159,13 @@ class Individual_month
     end
     return individual_lines
   end
-  
+
   def print_all_month
     array_of_lines = self.build_array_of_individual_lines
     # array_of_lines.each{ |line| puts line }
     array_of_lines.join("\n")
   end
-  
+
 end
 
 
