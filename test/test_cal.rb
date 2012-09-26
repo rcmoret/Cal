@@ -158,7 +158,7 @@ class CalTest < Test::Unit::TestCase
   
   def test_20a_print_next_lines_of_days
     cal = Individual_month.new(2012, 2)
-    expected = "26 27 28 29"
+    expected = "26 27 28 29         "
     actual = cal.build_array_of_individual_lines
     actual_result = actual[6]
     assert_equal(expected, actual_result)
@@ -172,7 +172,7 @@ class CalTest < Test::Unit::TestCase
     expected += " 5  6  7  8  9 10 11\n"
     expected += "12 13 14 15 16 17 18\n"
     expected += "19 20 21 22 23 24 25\n"
-    expected += "26 27 28 29"
+    expected += "26 27 28 29         "
     assert_equal(expected, cal.print_all_month)
   end
 end 
