@@ -128,27 +128,7 @@ class CalTest < Test::Unit::TestCase
     cal = Individual_month.new(2012, 9)
     assert_equal(6, cal.week_day_of_first_of_month)
   end
-  
-  def test_17a_number_of_spaces_to_buffer
-    cal = Individual_month.new(2012, 2)
-    assert_equal("         ", cal.number_of_spaces_to_buffer_first_day)
-  end
-  
-  def test_17b_number_of_spaces_to_buffer
-    cal = Individual_month.new(2012, 1)
-    assert_equal("", cal.number_of_spaces_to_buffer_first_day)
-  end
-  
-  def test_17c_number_of_spaces_to_buffer
-    cal = Individual_month.new(2012, 10)
-    assert_equal("   ", cal.number_of_spaces_to_buffer_first_day)
-  end
-  
-  def test_17d_number_of_spaces_to_buffer
-    cal = Individual_month.new(2012, 9)
-    expected = "                  "
-    assert_equal(expected, cal.number_of_spaces_to_buffer_first_day)
-  end
+
   
   def test_18a_single_digit_integer_should_be_prepended_w_a_space
     cal = Individual_month.new(2012, 2)

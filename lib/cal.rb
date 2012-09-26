@@ -108,42 +108,49 @@ class Individual_month
     integer_as_string = ""
     given_integer <= 9 ? integer_as_string = " " + given_integer.to_s : integer_as_string = given_integer.to_s
   end
-
-  def number_of_spaces_to_buffer_first_day
-    result = ""
-    return result if week_day_of_first_of_month == 0
-    result = " " * (3 * week_day_of_first_of_month)
-  end
   
   def print_first_line_of_dates
-    output = self.number_of_spaces_to_buffer_first_day
-    i = 1
-    number_of_days_to_print = 7 - self.week_day_of_first_of_month
-    while i <= number_of_days_to_print
-      output += adjust_day_of_month_string( i ) 
-      output += " " if i != number_of_days_to_print
+    # Each week day b/f the first day of the week will need a 3 space buffer
+    output = " " * (3 * week_day_of_first_of_month)
+    
+    number_of_days_in_first_week = 7 - self.week_day_of_first_of_month
+    i = 1 
+    # This loop will add the day number for each day in the first week
+    while i <= number_of_days_in_first_week
+      output += adjust_day_of_month_string(i)
+      output += " " unless i == number_of_days_in_first_week
       i += 1
     end
-    return output 
+    return output
   end
-  
+
   def build_array_of_individual_lines
     individual_lines = []
+    
+    # Here I will add the month/year line and the days of week line
     individual_lines << month_and_year_concatenation_centered_line
     individual_lines << print_week
+    
+    #Here I will add the first week line
     individual_lines << self.print_first_line_of_dates
-    i = 8 - self.week_day_of_first_of_month
+    
+    first_day_of_second_week = 8 - self.week_day_of_first_of_month # 8 is used b/c weekday of 1st returns 0 - 6
+    
+    # B/c the first week has been constructed, constructing the next lines will begin with the 1st day of 2nd week
+    day_of_the_month = first_day_of_second_week    
+    # number_days_in_this_month = self.number_of_days_in_given_month
     single_line = ""
     k = 1
-    number_days = self.number_of_days_in_given_month
-    while i <= number_days
-      single_line += adjust_day_of_month_string(i)
-      single_line += " " if (k % 7 != 0 && i != number_days)
-      if (k % 7 == 0 || i == number_days)
+    while day_of_the_month <= self.number_of_days_in_given_month
+      single_line += adjust_day_of_month_string(day_of_the_month)
+      single_line += " " if (k % 7 != 0 && day_of_the_month != self.number_of_days_in_given_month)
+      # If the day inserted is the last day of the week OR the last day of the month,
+      # then insert the string into the array and reset the string
+      if (k % 7 == 0 || day_of_the_month == self.number_of_days_in_given_month)
         individual_lines << single_line
         single_line = ""
       end
-      i += 1
+      day_of_the_month += 1
       k += 1
     end
     return individual_lines
@@ -151,7 +158,7 @@ class Individual_month
   
   def print_all_month
     array_of_lines = self.build_array_of_individual_lines
-    # array_of_lines.each{|line| puts line}
+    # array_of_lines.each{ |line| puts line }
     array_of_lines.join("\n")
   end
   
