@@ -76,26 +76,6 @@ class CalTest < Test::Unit::TestCase
     assert_equal(20, length)
   end
   
-  def test_13a_adjusted_month_add_twelve_for_jan
-    cal = Individual_month.new(2012, 1)
-    assert_equal(13, cal.adjusted_month)
-  end
-  
-  def test_13b_adjust_month_usually_return_unadjusted_month
-    cal = Individual_month.new(2012, 5)
-    assert_equal(5, cal.adjusted_month)
-  end
-  
-  def test_14a_adjusted_year_subtracts_one_for_jan
-    cal = Individual_month.new(2012, 1)
-    assert_equal(2011, cal.adjusted_year)
-  end
-  
-  def test_13b_adjust_year_usually_return_unadjusted_year
-    cal = Individual_month.new(2012, 5)
-    assert_equal(2012, cal.adjusted_year)
-  end
-  
   # test 16a - 16f will test Zeller's Congruence
   # to find out what the first day of the given month is. Typically Zeller's congruence will return 0 for Sat; 1 for Sun;...6 for Fri. 
   # I have adjusted the results so that the week days are returned will be 0 for Sun; 1 for Mon; ...6 for Sat. 
@@ -160,9 +140,22 @@ class CalTest < Test::Unit::TestCase
     cal = Individual_month.new(2012, 2)
     expected = "26 27 28 29         "
     actual = cal.build_array_of_individual_lines
-    actual_result = actual[6]
+    actual_result = actual[5]
     assert_equal(expected, actual_result)
   end
+  
+  def test_20b_print_the_month_without_header
+    cal = Individual_month.new(2012, 2)
+    expected  = "Su Mo Tu We Th Fr Sa\n"
+    expected += "          1  2  3  4\n"
+    expected += " 5  6  7  8  9 10 11\n"
+    expected += "12 13 14 15 16 17 18\n"
+    expected += "19 20 21 22 23 24 25\n"
+    expected += "26 27 28 29         "
+    actual = cal.build_array_of_individual_lines.join("\n")
+    assert_equal(expected, actual)
+  end
+    
   
   def test_21a_print_a_whole_month
     cal = Individual_month.new(2012, 2)

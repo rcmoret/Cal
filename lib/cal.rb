@@ -67,32 +67,28 @@ class Individual_month
     # Center month and year on the line.
     buffered_month_and_year = month_and_year.center(line_length)
   end
-  
-  # For zeller's congruence, it will need a number 3 - 14; 
-  # Jan & Feb will be treated as 13 & 14. All other months will be treated normally
-  def adjusted_month
-    if @month <= 2
-      @month + 12
-    else
-      @month
-    end 
-  end
-  
-  # For zeller's congruence, Jan & Feb will be treated as the 13th/14th month of
-  # the preceeding year. So, if the month in question is Jan or Feb, the year will
-  # need to be adjusted by subtracting 1
-  def adjusted_year
+
+  # Zeller's Congruence
+  # This algorithm will return the weekday as a digit for a date (given the month, day & year as variables)
+  def week_day_of_first_of_month
+    day_of_month = 1 # This will be 1 representing the 1st of the month
+    
+    # Adjustments - Zeller's alg. treats Jan & Feb as the 13th & 14th months of prev. year
+    # Month
     if @month <= 2
       adjusted_year = @year -1
     else
       adjusted_year = @year
     end
-  end
-  
-  # Zeller's Congruence
-  # This algorithm will return the weekday (0=Sat; 1 = Sun;...6=Fri) for a date (given the month, day & year as variables)
-  def week_day_of_first_of_month
-    day_of_month = 1 # This will be 1 representing the 1st of the month
+    
+    # Year
+    if @month <= 2
+      adjusted_month = @month + 12
+    else
+      adjusted_month = @month
+    end
+    
+    # The algorithm after adjustments.
     march_adjustment = ((adjusted_month + 1) * 2.6).floor
     leap_year_offset = (adjusted_year * 0.25).floor
     leap_year_offset += 6*((adjusted_year * 0.01).floor)
@@ -104,14 +100,15 @@ class Individual_month
     day_of_week != 0 ? week_day_of_first_of_month = day_of_week - 1 : week_day_of_first_of_month = 6
   end
   
-  def adjust_day_of_month_string( given_integer)
-    integer_as_string = ""
+  def adjust_day_of_month_string(given_integer)
+    integer_as_string = String.new
     given_integer <= 9 ? integer_as_string = " " + given_integer.to_s : integer_as_string = given_integer.to_s
   end
 
   def print_first_line_of_dates
+    output = String.new
     # Each week day b/f the first day of the week will need a 3 space buffer
-    output = " " * (3 * week_day_of_first_of_month)
+    output += " " * (3 * week_day_of_first_of_month)
     
     number_of_days_in_first_week = 7 - self.week_day_of_first_of_month
     i = 1 
@@ -123,12 +120,11 @@ class Individual_month
     end
     return output
   end
-
+  
   def build_array_of_individual_lines
     individual_lines = []
     
-    # Here I will add the month/year line and the days of week line
-    individual_lines << month_and_year_concatenation_centered_line
+    # Days of the Week
     individual_lines << print_week
     
     #Here I will add the first week line
@@ -139,7 +135,7 @@ class Individual_month
     # B/c the first week has been constructed, constructing the next lines will begin with the 1st day of 2nd week
     day_of_the_month = first_day_of_second_week    
     # number_days_in_this_month = self.number_of_days_in_given_month
-    single_line = ""
+    single_line = String.new
     k = 1
     while day_of_the_month <= number_of_days_in_given_month
       single_line += adjust_day_of_month_string(day_of_the_month)
@@ -152,20 +148,26 @@ class Individual_month
           single_line += " " * spaces_to_add
         end
         individual_lines << single_line
-        single_line = ""
+        single_line = String.new
       end
       day_of_the_month += 1
       k += 1
     end
     return individual_lines
   end
+  
+  def finish_array
+    finished_array = self.build_array_of_individual_lines
+    finished_array.insert(0, self.month_and_year_concatenation_centered_line)
+  end
 
   def print_all_month
-    array_of_lines = self.build_array_of_individual_lines
+    array_of_lines = self.finish_array
+    # array_of_lines = self.build_array_of_individual_lines
     # array_of_lines.each{ |line| puts line }
     array_of_lines.join("\n")
   end
-
+  
 end
 
 

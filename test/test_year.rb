@@ -9,26 +9,27 @@ class YearCalTest < Test::Unit::TestCase
     assert_equal(expected, new_year.centered_year_string)
   end
   
-  def test_102_create_months_is_a_hash
-    party_like_1999 = Entire_year.new(1999)
-    actual = party_like_1999.create_month_instances
-    assert_equal(true, actual.is_a?(Hash))
+  def test_102_check_the_size_of_master_array
+    party_like_its_1999 = Entire_year.new(1999)
+    actual = party_like_its_1999.create_master_array
+    assert_equal(12, actual.size)
   end
   
-  def test_103_print_the_hash
-    party_like_1999 = Entire_year.new(1999)
-    expected_array = []
-    actual_array = []
-    expected_array << "\nthis is January and its value is an individual month object"
-    expected_array << "\nthis is February and its value is an individual month object"
-    expected_array << "\nthis is March and its value is an individual month object"
-    actual = party_like_1999.create_month_instances
-    actual.each do |key, value|
-      result = value.is_a?(Individual_month) ? "an individual month object" : "not the right kind of object"
-      test_string = "\nthis is #{key} and its value is " + result
-      actual_array << test_string
-    end
-    assert_equal(expected_array.sort, actual_array.sort)
+  def test_103_check_an_item_in_the_master_array
+    party_like_its_1999 = Entire_year.new(2012)
+    year_array = party_like_its_1999.create_master_array
+    expected = []
+    expected << "February".center(20)
+    expected << "Su Mo Tu We Th Fr Sa"
+    expected << "          1  2  3  4"
+    expected << " 5  6  7  8  9 10 11"
+    expected << "12 13 14 15 16 17 18"
+    expected << "19 20 21 22 23 24 25"
+    expected << "26 27 28 29         "
+    expected << " " * 20
+    actual = year_array[9]
+    assert_equal(expected, actual)
+    
   end
   
 end

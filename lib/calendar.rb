@@ -1,7 +1,7 @@
 require 'cal'
 month = ARGV[0].to_i
 year = ARGV[1].to_i
-msg = ""
+msg = String.new
   if (month > 12 || month < 1)
     month_error = true
     msg += "You did not enter a valid number for the month. Please enter an integer between 1 and 12\n"
