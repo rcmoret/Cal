@@ -27,9 +27,15 @@ class YearCalTest < Test::Unit::TestCase
     expected << "19 20 21 22 23 24 25"
     expected << "26 27 28 29         "
     expected << " " * 20
-    actual = year_array[9]
+    actual = year_array[1]
     assert_equal(expected, actual)
-    
+  end
+  
+  def test_104_what_does_a_year_look_like
+    party_like_its_1999 = Entire_year.new(1999)
+    expected = "I'm not sure what to expect"
+    actual = party_like_its_1999.output_whole_year
+    assert_equal(expected, actual)
   end
   
 end
