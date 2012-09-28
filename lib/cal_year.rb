@@ -1,4 +1,4 @@
-require 'cal'
+require 'calendar'
 
 class Entire_year < Individual_month
 
@@ -51,21 +51,17 @@ class Entire_year < Individual_month
       output = String.new
       i = 0 
       k = 0
-      while !quarter[k][i].nil?
+      until quarter[k][i].nil?
       output += quarter[k][i] + "  "
         if k == 2
           lines << output
           i += 1
           output = String.new
-        end
-            
+        end     
       k == 2 ? k = 0 : k += 1
       end
-      
     end
-    
     lines << "\n"
-    
     return lines
   end
 
