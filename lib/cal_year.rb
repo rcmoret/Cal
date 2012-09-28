@@ -7,8 +7,8 @@ class Entire_year < Individual_month
   end
   
   def centered_year_string
-    centered_year = @year.to_s
-    return centered_year.center(62) # The year calendar is 62 characters wide
+    centered_year = @year.to_s.center(62)
+#    return centered_year.center(62) # The year calendar is 62 characters wide
   end
   
   def create_master_array

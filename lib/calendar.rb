@@ -74,19 +74,12 @@ class Individual_month
     day_of_month = 1 # This will be 1 representing the 1st of the month
     
     # Adjustments - Zeller's alg. treats Jan & Feb as the 13th & 14th months of prev. year
+    
     # Month
-    if @month <= 2
-      adjusted_year = @year -1
-    else
-      adjusted_year = @year
-    end
+    adjusted_year = @month <= 2 ? @year -1 : adjusted_year = @year
     
     # Year
-    if @month <= 2
-      adjusted_month = @month + 12
-    else
-      adjusted_month = @month
-    end
+    adjusted_month = @month <= 2 ? @month + 12 : adjusted_month = @month
     
     # The algorithm after adjustments.
     march_adjustment = ((adjusted_month + 1) * 2.6).floor

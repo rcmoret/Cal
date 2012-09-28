@@ -40,17 +40,13 @@ else
       year_error = false
     end
   
-
-
-    unless month_error || year_error
+    if !(month_error || year_error)
       print "\n"
       cal = Individual_month.new(year, month)
-      if year == 1999
-        puts "We're gonna party like it's 1999!"
-      end
-    
       print cal.print_all_month + "\n\n"
-    
+      if year == 1999
+        print "We're gonna party like it's 1999!\n\n"
+      end
     else
       puts msg
     end
