@@ -92,26 +92,19 @@ class Individual_month
     # For my purposes, it will be easier I adjust that so that 0 = Sun; 1 = Mon;...6 = Sat.
     day_of_week != 0 ? week_day_of_first_of_month = day_of_week - 1 : week_day_of_first_of_month = 6
   end
-  
-  def adjust_day_of_month_string(given_integer)
-    integer_as_string = String.new
-    given_integer <= 9 ? integer_as_string = " " + given_integer.to_s : integer_as_string = given_integer.to_s
-  end
 
   def print_first_line_of_dates
     output = String.new
-    # Each week day b/f the first day of the week will need a 3 space buffer
-    output += " " * (3 * week_day_of_first_of_month)
     
     number_of_days_in_first_week = 7 - self.week_day_of_first_of_month
-    i = 1 
+    day_number = 1 
     # This loop will add the day number for each day in the first week
-    while i <= number_of_days_in_first_week
-      output += adjust_day_of_month_string(i)
-      output += " " unless i == number_of_days_in_first_week
-      i += 1
+    while day_number <= number_of_days_in_first_week
+      output += day_number.to_s.rjust(2)
+      output += " " unless day_number == number_of_days_in_first_week
+      day_number += 1
     end
-    return output
+    return (output).rjust(line_length)
   end
   
   def build_array_of_individual_lines
@@ -129,18 +122,14 @@ class Individual_month
     day_of_the_month = first_day_of_second_week    
     # number_days_in_this_month = self.number_of_days_in_given_month
     single_line = String.new
-    k = 1
+    k = 1 
     while day_of_the_month <= number_of_days_in_given_month
-      single_line += adjust_day_of_month_string(day_of_the_month)
+      single_line += day_of_the_month.to_s.rjust(2)
       single_line += " " if (k % 7 != 0 && day_of_the_month != number_of_days_in_given_month)
       # If the day inserted is the last day of the week OR the last day of the month,
       # then insert the string into the array and reset the string
       if (k % 7 == 0 || day_of_the_month == number_of_days_in_given_month)
-        if single_line.length != line_length
-          spaces_to_add = line_length - single_line.length
-          single_line += " " * spaces_to_add
-        end
-        individual_lines << single_line
+        individual_lines << single_line.ljust(line_length)
         single_line = String.new
       end
       day_of_the_month += 1
@@ -150,8 +139,11 @@ class Individual_month
   end
   
   def finish_array
-    finished_array = self.build_array_of_individual_lines
-    finished_array.insert(0, self.month_and_year_concatenation_centered_line)
+    almost_finished_array = self.build_array_of_individual_lines
+    almost_finished_array.insert(0, self.month_and_year_concatenation_centered_line)
+    if @year == 1999
+      almost_finished_array.insert(1, "We're going to party like it's 1999".center(20))      
+    end
   end
 
   def print_all_month

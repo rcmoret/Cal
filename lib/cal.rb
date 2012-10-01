@@ -44,9 +44,6 @@ else
       print "\n"
       cal = Individual_month.new(year, month)
       print cal.print_all_month + "\n\n"
-      if year == 1999
-        print "We're gonna party like it's 1999!\n\n"
-      end
     else
       puts msg
     end

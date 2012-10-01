@@ -108,19 +108,6 @@ class CalTest < Test::Unit::TestCase
     cal = Individual_month.new(2012, 9)
     assert_equal(6, cal.week_day_of_first_of_month)
   end
-
-  
-  def test_18a_single_digit_integer_should_be_prepended_w_a_space
-    cal = Individual_month.new(2012, 2)
-    result = cal.adjust_day_of_month_string(1)
-    assert_equal(" 1", result)
-  end
-  
-  def test_18b_single_digit_integer_should_be_prepended_w_a_space
-    cal = Individual_month.new(2012, 2)
-    result = cal.adjust_day_of_month_string(10)
-    assert_equal("10", result)
-  end
   
   def test_19a_print_first_line_of_days
     expected = "          1  2  3  4"
