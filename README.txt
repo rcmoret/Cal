@@ -1,4 +1,5 @@
 Calendar Project -- by Ryan Moret
+created: 10/01/2012
 updated: 10/01/2012
 
 1. This bit of code was constructed as an assignment for the Nashville Software School.

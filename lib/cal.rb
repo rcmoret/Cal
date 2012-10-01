@@ -43,7 +43,7 @@ else
     if !(month_error || year_error)
       print "\n"
       cal = Individual_month.new(year, month)
-      print cal.print_all_month + "\n\n"
+      print cal.finish_array.join("\n") + "\n\n"
     else
       puts msg
     end

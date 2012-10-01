@@ -6,7 +6,7 @@ class Entire_year < Individual_month
     @year = input_year
   end
   
-  def centered_year_string
+  def centered_year_string  
     centered_year = @year.to_s.center(62)
   end
   
@@ -36,7 +36,7 @@ class Entire_year < Individual_month
   def output_whole_year
     lines = [] # This array will contain each line which can be output later
     lines << "\n" + @year.to_s.center(64) + "\n"
-    if @year == 1999
+    if @year == 1999 # This is an 'easter egg' (see http://en.wikipedia.org/wiki/Easter_egg_(media) fro more info)
       lines << "We're going to party like it's 1999!\n".center(64)
     end
     
