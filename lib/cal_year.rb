@@ -20,8 +20,8 @@ class Entire_year < Individual_month
     months_iterations = (1..12).to_a
     
     single_month_array = []
-    months_iterations.each do |ind_month|
-      this_instance = Individual_month.new(@year, ind_month)
+    months_iterations.each do |month|
+      this_instance = Individual_month.new(@year, month)
       
       single_month_array << this_instance.textual_representation_of_the_month.center(line_length)
       single_month_array << this_instance.build_array_of_individual_lines
@@ -35,7 +35,7 @@ class Entire_year < Individual_month
   
   def output_whole_year
     lines = []
-    lines << "\n" + @year.to_s.center(62) + "\n"
+    lines << "\n" + @year.to_s.center(64) + "\n"
     if @year == 1999
       lines << "We're going to party like it's 1999!\n".center(62)
     end
@@ -51,13 +51,13 @@ class Entire_year < Individual_month
       output = String.new
       line_index = 0 # This will be the outer loop
       month_index = 0 # This will be the inner loop. 
-      until quarter[month_index][line_index].nil?
-      output += quarter[month_index][line_index] + "  "
+      while quarter[month_index][line_index]
+        output += quarter[month_index][line_index] + "  "
         
         if month_index == 2 # Add to the array, increment line_index and reset month_index and string
           lines << output
-          line_index += 1
           output = String.new
+          line_index += 1
           month_index = 0
         else # Just increment the month_index
           month_index += 1

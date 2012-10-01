@@ -1,4 +1,3 @@
-
 def print_week
   print_week ="Su Mo Tu We Th Fr Sa"
 end
@@ -97,8 +96,8 @@ class Individual_month
     output = String.new
     
     number_of_days_in_first_week = 7 - self.week_day_of_first_of_month
-    day_number = 1 
     # This loop will add the day number for each day in the first week
+    day_number = 1 
     while day_number <= number_of_days_in_first_week
       output += day_number.to_s.rjust(2)
       output += " " unless day_number == number_of_days_in_first_week
@@ -120,7 +119,6 @@ class Individual_month
     
     # B/c the first week has been constructed, constructing the next lines will begin with the 1st day of 2nd week
     day_of_the_month = first_day_of_second_week    
-    # number_days_in_this_month = self.number_of_days_in_given_month
     single_line = String.new
     k = 1 
     while day_of_the_month <= number_of_days_in_given_month
@@ -144,6 +142,7 @@ class Individual_month
     if @year == 1999
       almost_finished_array.insert(1, "We're going to party like it's 1999".center(20))      
     end
+    return almost_finished_array
   end
 
   def print_all_month

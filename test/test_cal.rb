@@ -3,6 +3,7 @@ require 'cal.rb'
 
 
 class CalTest < Test::Unit::TestCase
+  
   # this will test for (non century) years that are divisible by 4
   def test_01a_number_of_days_in_a_normal_leap_year
     cal = Individual_month.new(2012, 2)
@@ -143,16 +144,4 @@ class CalTest < Test::Unit::TestCase
     assert_equal(expected, actual)
   end
     
-  
-  def test_21a_print_a_whole_month
-    cal = Individual_month.new(2012, 2)
-    expected =  "   February 2012    \n"
-    expected += "Su Mo Tu We Th Fr Sa\n"
-    expected += "          1  2  3  4\n"
-    expected += " 5  6  7  8  9 10 11\n"
-    expected += "12 13 14 15 16 17 18\n"
-    expected += "19 20 21 22 23 24 25\n"
-    expected += "26 27 28 29         "
-    assert_equal(expected, cal.print_all_month)
-  end
 end 
