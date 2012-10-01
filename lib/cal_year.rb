@@ -53,12 +53,16 @@ class Entire_year < Individual_month
       month_index = 0 # This will be the inner loop. 
       until quarter[month_index][line_index].nil?
       output += quarter[month_index][line_index] + "  "
-        if month_index == 2
+        
+        if month_index == 2 # Add to the array, increment line_index and reset month_index and string
           lines << output
           line_index += 1
           output = String.new
-        end     
-      month_index == 2 ? month_index = 0 : month_index += 1
+          month_index = 0
+        else # Just increment the month_index
+          month_index += 1
+        end
+        
       end
     end
     lines << "\n"
