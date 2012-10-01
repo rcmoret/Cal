@@ -49,16 +49,16 @@ class Entire_year < Individual_month
     
     quarters.each do |quarter|
       output = String.new
-      i = 0 
-      k = 0
-      until quarter[k][i].nil?
-      output += quarter[k][i] + "  "
-        if k == 2
+      line_index = 0 # This will be the outer loop
+      month_index = 0 # This will be the inner loop. 
+      until quarter[month_index][line_index].nil?
+      output += quarter[month_index][line_index] + "  "
+        if month_index == 2
           lines << output
-          i += 1
+          line_index += 1
           output = String.new
         end     
-      k == 2 ? k = 0 : k += 1
+      month_index == 2 ? month_index = 0 : month_index += 1
       end
     end
     lines << "\n"
