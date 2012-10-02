@@ -48,33 +48,29 @@ class EntireYear < IndividualMonth
     # For each quarter (array) loop thru and concatenate the lines from individual months and places those lines into the lines array
     quarters.each do |quarter|
       
-     # single_string = ""
-     # line_index = 0 # This will be the outer loop
-     # month_index = 0 # This will be the inner loop. 
-     # while quarter[month_index][line_index]
-     #   single_string += quarter[month_index][line_index] + "  "
-     # 
-     #   if month_index == 2 # Add to the array, increment line_index and reset month_index and string
-     #     line_array << single_string
-     #     single_string = ""
-     #     line_index += 1
-     #     month_index = 0
-     #   else # Just increment the month_index
-     #     month_index += 1
-     #   end
-     # 
-     # end
+     single_string = ""
+     line_index = 0 # This will be the outer loop
+     month_index = 0 # This will be the inner loop. 
+     while quarter[month_index][line_index]
+       single_string += quarter[month_index][line_index] + "  "
      
-     line_array << quarter.transpose
-     # print "\n"
-     # puts quarter[0].size
-     # puts quarter[1].size
-     # puts quarter[2].size
-      
+       if month_index == 2 # Add to the array, increment line_index and reset month_index and string
+         line_array << single_string
+         single_string = ""
+         line_index += 1
+         month_index = 0
+       else # Just increment the month_index
+         month_index += 1
+       end
+     
+     end
+     
+     # line_array << quarter.transpose
+     
     end
     line_array << "\n"
-    # return line_array
-    line_array.flatten!
+    return line_array
+    # line_array.flatten!
   end
 
 end
