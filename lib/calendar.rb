@@ -80,7 +80,7 @@ class IndividualMonth
 
   def first_line_of_dates
     output = String.new
-    number_of_days_in_first_week = 7 - self.week_day_of_first_of_month
+    number_of_days_in_first_week = 7 - weekday_of_1st_of_month
     day_number = 1 
     # This loop will add the day number for each day in the first week
     while day_number <= number_of_days_in_first_week
