@@ -14,7 +14,7 @@ if individual_year
   end
 
   unless year_error
-    new_year = Entire_year.new(individual_year)
+    new_year = EntireYear.new(individual_year)
     print new_year.output_whole_year.join("\n")
   else
     print msg
@@ -42,7 +42,7 @@ else
   
     if !(month_error || year_error)
       print "\n"
-      cal = Individual_month.new(year, month)
+      cal = IndividualMonth.new(year, month)
       print cal.finish_array.join("\n") + "\n\n"
     else
       puts msg

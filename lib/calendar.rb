@@ -79,9 +79,16 @@ class IndividualMonth
   end
 
   def first_line_of_dates
-    number_of_days_in_first_week = 7 - weekday_of_1st_of_month
-    first_week_array = (1..number_of_days_in_first_week).to_a
-    output = first_week_array.join("  ").rjust(NUM_CHARS_IN_LINE)
+    output = String.new
+    number_of_days_in_first_week = 7 - self.week_day_of_first_of_month
+    day_number = 1 
+    # This loop will add the day number for each day in the first week
+    while day_number <= number_of_days_in_first_week
+      output += day_number.to_s.rjust(2)
+      output += " " unless day_number == number_of_days_in_first_week
+      day_number += 1
+    end
+    output.rjust(NUM_CHARS_IN_LINE)
   end
   
   def build_array_of_individual_lines
