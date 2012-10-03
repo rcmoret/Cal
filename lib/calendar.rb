@@ -1,12 +1,7 @@
-def print_week
-  print_week ="Su Mo Tu We Th Fr Sa"
-end
+WEEK_DAY_ABBREVIATIONS ="Su Mo Tu We Th Fr Sa"
+NUMBER_CHARS_IN_LINE = WEEK_DAY_ABBREVIATIONS.length
 
-def line_length
-  line_length = print_week.length
-end
-
-class Individual_month
+class IndividualMonth
   
   def initialize(year, month)
     @year = year
@@ -18,7 +13,8 @@ class Individual_month
       number_of_days = 31
     elsif[4, 6, 9, 11].include?(@month)
       number_of_days = 30
-    else # this else statement will handle the number of days in Feb.      
+    else # This else statement will handle the number of days in Feb.      
+      # Years that are NOT divisible by 4 and those that are divisible by 100, but not 400 will not be leap years
       if((@year % 4 != 0) || (@year % 100 == 0 && @year % 400 != 0))
         number_of_days = 28
       else
@@ -58,7 +54,7 @@ class Individual_month
 
   # ZELLER'S CONGRUENCE (more info: http://en.wikipedia.org/wiki/Zeller%27s_congruence)
   # This algorithm will return the weekday as a digit for a date (given the month, day & year as variables)
-  def week_day_of_first_of_month
+  def weekday_of_1st_of_month
     day_of_month = 1 # This will be 1 representing the 1st of the month
     
     # Adjustments - Zeller's alg. treats Jan & Feb as the 13th & 14th months of prev. year
@@ -71,21 +67,20 @@ class Individual_month
     
     # Algorithm after adjustments.
     march_adjustment = ((adjusted_month + 1) * 2.6).floor
-    leap_year_offset = adjusted_year
     leap_year_offset += (adjusted_year * 0.25).floor
     leap_year_offset += 6*((adjusted_year * 0.01).floor)
     leap_year_offset += (adjusted_year * 0.0025).floor
-    day_of_week = (day_of_month + march_adjustment + leap_year_offset) % 7
+    day_of_week = (day_of_month + march_adjustment + adjusted_year + leap_year_offset) % 7
     
     # Zeller's Congruence returns (0=Sat; 1 = Sun;...6=Fri)
     # For my purposes, it will be easier if an adjustment is made so  0 = Sun; 1 = Mon;...6 = Sat.
-    day_of_week != 0 ? week_day_of_first_of_month = day_of_week - 1 : week_day_of_first_of_month = 6
+    day_of_week != 0 ? weekday_of_1st_of_month = day_of_week - 1 : weekday_of_1st_of_month = 6
   end
 
-  def print_first_line_of_dates
+  def first_line_of_dates
     output = String.new
     
-    number_of_days_in_first_week = 7 - self.week_day_of_first_of_month
+    number_of_days_in_first_week = 7 - weekday_of_1st_of_month
     # This loop will add the day number for each day in the first week
     day_number = 1 
     while day_number <= number_of_days_in_first_week
@@ -93,19 +88,19 @@ class Individual_month
       output += " " unless day_number == number_of_days_in_first_week
       day_number += 1
     end
-    return output.rjust(line_length)
+    return output.rjust(NUMBER_CHARS_IN_LINE)
   end
   
   def build_array_of_individual_lines
     individual_lines = []
     
     # Days of the Week
-    individual_lines << print_week
+    individual_lines << WEEK_DAY_ABBREVIATIONS
     
     #Here I will add the first week line
-    individual_lines << self.print_first_line_of_dates
+    individual_lines << self.first_line_of_dates
     
-    day_of_the_month = 8 - self.week_day_of_first_of_month # This will begin w/ the first day of 2nd week of the month
+    day_of_the_month = 8 - self.weekday_of_1st_of_month # This will begin w/ the first day of 2nd week of the month
     single_line = String.new
     k = 1 # "k" will be incremented through the loop, & will be used to determine when breaks are needed
     while day_of_the_month <= number_of_days_in_given_month
@@ -113,7 +108,7 @@ class Individual_month
       single_line += " " if (k % 7 != 0 && day_of_the_month != number_of_days_in_given_month)
       
       if (k % 7 == 0 || day_of_the_month == number_of_days_in_given_month) # End of the week or month. Insert the string into the array and reset the string
-        individual_lines << single_line.ljust(line_length) # Insert the sting into the array.
+        individual_lines << single_line.ljust(NUMBER_CHARS_IN_LINE) # Insert the sting into the array.
         single_line = String.new # Reset the string.
       end
       
@@ -126,9 +121,9 @@ class Individual_month
   def finish_array
     almost_finished_array = self.build_array_of_individual_lines
     month_and_year = self.textual_representation_of_the_month + " " + @year.to_s
-    finished_array = almost_finished_array.insert(0, month_and_year.center(20))
-    if @year == 1999 # This is an 'easter egg' (see http://en.wikipedia.org/wiki/Easter_egg_(media) fro more info)
-      finished_array.insert(1, "We're going to party like it's 1999".center(20))      
+    finished_array = almost_finished_array.insert(0, month_and_year.center(NUMBER_CHARS_IN_LINE))
+    if @year == 1999 # This is an 'easter egg' (see http://en.wikipedia.org/wiki/Easter_egg_(media) for more info)
+      finished_array.insert(1, "We're going to party like it's 1999".center(NUMBER_CHARS_IN_LINE))      
     end
     return finished_array
   end

@@ -4,19 +4,19 @@ require 'cal_year.rb'
 class YearCalTest < Test::Unit::TestCase
   
   def test_101_centered_year
-    new_year = Entire_year.new(2003)
-    expected = "2003".center(62)
+    new_year = EntireYear.new(2003)
+    expected = "                              2003                              "
     assert_equal(expected, new_year.centered_year_string)
   end
   
   def test_102_check_the_size_of_master_array
-    party_like_its_1999 = Entire_year.new(1999)
+    party_like_its_1999 = EntireYear.new(1999)
     actual = party_like_its_1999.create_master_array
     assert_equal(12, actual.size)
   end
   
   def test_103_check_an_item_in_the_master_array
-    party_like_its_1999 = Entire_year.new(2012)
+    party_like_its_1999 = EntireYear.new(2012)
     year_array = party_like_its_1999.create_master_array
     expected = []
     expected << "      February      "
@@ -32,9 +32,9 @@ class YearCalTest < Test::Unit::TestCase
   end
   
   def test_104_what_does_an_individual_month_in_year_look_like
-      party_like_its_1999 = Entire_year.new(1909)
+      party_like_its_1999 = EntireYear.new(1909)
           expected = []
-          expected <<         "\n                              1909                              \n" 
+          expected <<        "\n                              1909                              \n" 
           expected <<        "      January               February               March          "
           expected <<        "Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  "
           expected <<        "                1  2      1  2  3  4  5  6      1  2  3  4  5  6  "
@@ -69,7 +69,7 @@ class YearCalTest < Test::Unit::TestCase
           expected <<        "31                                                                "
           expected <<        "\n"
           
-          actual = party_like_its_1999.output_whole_year
+          actual = party_like_its_1999.whole_year_array
           assert_equal(expected, actual)
     end
   

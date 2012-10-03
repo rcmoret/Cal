@@ -1,13 +1,13 @@
 require 'calendar'
 
-class Entire_year < Individual_month
+class EntireYear < IndividualMonth
 
   def initialize(input_year)
     @year = input_year
   end
   
   def centered_year_string  
-    centered_year = @year.to_s.center(62)
+    centered_year = @year.to_s.center(64)
   end
   
   def create_master_array
@@ -20,12 +20,12 @@ class Entire_year < Individual_month
     single_month_array = []
     # This loop will create a instance of each month and place that month's lines into a master array
     months_iterations.each do |month|
-      this_instance = Individual_month.new(@year, month)
+      this_instance = IndividualMonth.new(@year, month)
       
-      single_month_array << this_instance.textual_representation_of_the_month.center(line_length)
+      single_month_array << this_instance.textual_representation_of_the_month.center(NUMBER_CHARS_IN_LINE)
       single_month_array << this_instance.build_array_of_individual_lines
       # This line will insure that all of the months have the same number of lines
-      single_month_array << (" " * 20) if single_month_array.size < 8
+      single_month_array << (" " * NUMBER_CHARS_IN_LINE) if single_month_array.size < 8
       
       master_array << single_month_array.flatten 
       single_month_array = [] # Reset this array before running through the loop again.
@@ -33,16 +33,16 @@ class Entire_year < Individual_month
     return master_array
   end
   
-  def output_whole_year
+  def whole_year_array
     lines = [] # This array will contain each line which can be output later
     lines << "\n" + @year.to_s.center(64) + "\n"
-    if @year == 1999 # This is an 'easter egg' (see http://en.wikipedia.org/wiki/Easter_egg_(media) fro more info)
+    if @year == 1999 # This is an 'easter egg' (see http://en.wikipedia.org/wiki/Easter_egg_(media) for more info)
       lines << "We're going to party like it's 1999!\n".center(64)
     end
     
     whole_year_array = self.create_master_array
     
-    # Divide the calendar into quarters and group those months (which are arrays) into an array
+    # Divide the calendar into quarters (3 months each) and group those months (which are arrays) into an array
     quarters = []
     (whole_year_array.size/3).times do |i|
       quarters.push whole_year_array[i*3..(i*3)+2]
