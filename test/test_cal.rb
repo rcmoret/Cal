@@ -99,19 +99,19 @@ class CalTest < Test::Unit::TestCase
     cal = IndividualMonth.new(2012, 2)
     expected = " 5  6  7  8  9 10 11"
     actual = cal.build_array_of_individual_lines
-    actual_result = actual[2]
+    actual_result = actual[0]
     assert_equal(expected, actual_result)
   end
   
-  def test_20a_print_last_lines_of_days
+  def test_20b_print_last_lines_of_days
     cal = IndividualMonth.new(2012, 2)
     expected = "26 27 28 29         "
     actual = cal.build_array_of_individual_lines
-    actual_result = actual[5]
+    actual_result = actual[3]
     assert_equal(expected, actual_result)
   end
   
-  def test_20b_print_the_month
+  def test_20c_print_the_month
     cal = IndividualMonth.new(2012, 2)
     expected = []
     expected << "   February 2012    "

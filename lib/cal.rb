@@ -14,10 +14,8 @@ if individual_year
   end
 
   unless year_error
-    new_year = Entire_year.new(individual_year)
-    print new_year.whole_year_array.join("\n")
     new_year = EntireYear.new(individual_year)
-    print new_year.output_whole_year.join("\n")
+    print new_year.organize_whole_year.join("\n")
   else
     print msg
   end

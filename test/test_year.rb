@@ -3,12 +3,6 @@ require 'cal_year.rb'
 
 class YearCalTest < Test::Unit::TestCase
   
-  def test_101_centered_year
-    new_year = EntireYear.new(2003)
-    expected = "2003".center(62)
-    assert_equal(expected, new_year.centered_year_string)
-  end
-  
   def test_102_check_the_size_of_master_array
     party_like_its_1999 = EntireYear.new(1999)
     actual = party_like_its_1999.create_year_array
@@ -69,7 +63,7 @@ class YearCalTest < Test::Unit::TestCase
           expected <<        "31                                                                "
           expected <<        "\n"
           
-          actual = party_like_its_1999.organize_whole_year
+          actual = party_like_its_1999.finish_whole_year
           assert_equal(expected, actual)
     end
   
