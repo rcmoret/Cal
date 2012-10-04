@@ -80,17 +80,15 @@ class IndividualMonth
 
   def first_line_of_dates
     output = ""
-    number_of_days_in_first_week = 7 - weekday_of_1st_of_month
-    
-    number_of_days_in_first_week.times do |day|
-      output += (day + 1).to_s.rjust(2)
-      output += " " unless (day + 1) == number_of_days_in_first_week
+    # number_of_days_in_first_week = 7 - weekday_of_1st_of_month
+    1.upto(7 - weekday_of_1st_of_month) do |day|
+      output += (day).to_s.rjust(2)
+      output += " " unless (day) == (7 - weekday_of_1st_of_month)
     end
-    
     output.rjust(NUM_CHARS_IN_LINE)
   end
   
-  def build_array_of_individual_lines
+  def start_the_array_of_lines
     individual_lines = []
     
     # Days of the Week
@@ -98,21 +96,25 @@ class IndividualMonth
     
     #Here I will add the first week line
     individual_lines << first_line_of_dates
+  end
+  
+  def build_array_of_individual_lines
+    individual_lines = []
+    individual_lines.push start_the_array_of_lines
+    individual_lines.flatten!
     
-    day_of_the_month = 8 - weekday_of_1st_of_month # This will begin w/ the first day of 2nd week of the month
     single_line = ""
-    k = 1 # "k" will be incremented through the loop, & will be used to determine when breaks are needed    
-    while day_of_the_month <= number_days_in_a_month
-         single_line += day_of_the_month.to_s.rjust(2)
-         single_line += " " if (k % 7 != 0 && day_of_the_month != number_days_in_a_month)         
-         if (k % 7 == 0 || day_of_the_month == number_days_in_a_month) # End of the week or month. Insert the string into the array and reset the string
-           individual_lines << single_line.ljust(NUM_CHARS_IN_LINE) # Insert the string into the array.
-           single_line = "" # Reset the string.
-         end
-         day_of_the_month += 1
-         k += 1
-       end
-    return individual_lines
+    k = 1 # "k" will be used to determine when breaks are needed    
+    (8 - weekday_of_1st_of_month).upto(number_days_in_a_month) do |day_of_the_month|
+      single_line += day_of_the_month.to_s.rjust(2)
+      if k % 7 != 0 && day_of_the_month != number_days_in_a_month # Not the end of week or month.
+        single_line += " "
+      else
+        individual_lines << single_line.ljust(NUM_CHARS_IN_LINE); single_line = "" 
+      end
+      k += 1
+   end
+   return individual_lines
   end
   
   def finish_array
