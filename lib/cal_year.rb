@@ -14,7 +14,7 @@ class EntireYear < IndividualMonth
       single_month_array << WEEKDAYS_ABBREVIATED
       single_month_array << this_instance.first_line_of_dates
       single_month_array << this_instance.build_array_of_individual_lines 
-      single_month_array << " " * NUM_CHARS_IN_LINE if single_month_array.size < 8
+      single_month_array << ' ' * NUM_CHARS_IN_LINE if single_month_array.size < 8
       year_array << single_month_array.flatten
     end
     year_array
@@ -34,10 +34,10 @@ class EntireYear < IndividualMonth
     line_array = []; 
     single_string = ''
     while quarter_array[month_index][line_index]
-      single_string += quarter_array[month_index][line_index] + "  "
+      single_string += quarter_array[month_index][line_index] + '  '
       if month_index == 2 # Add to the array, increment line_index and reset 
         line_array << single_string
-        single_string = ""
+        single_string = ''
         line_index += 1; month_index = 0
       else # Just increment the month_index
         month_index += 1

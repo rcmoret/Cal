@@ -55,32 +55,32 @@ class CalTest < Test::Unit::TestCase
   # I have adjusted the results so that the week days are returned will be 0 for Sun; 1 for Mon; ...6 for Sat. 
   def test_16a_zellers_congruence
     cal = IndividualMonth.new(2012, 2)
-    assert_equal(3, cal.weekday_of_1st_of_month)
+    assert_equal(4, cal.number_days_in_1st_week)
   end
 
   def test_16b_2nd_zellers_congruence
     cal = IndividualMonth.new(1999, 4)
-    assert_equal(4, cal.weekday_of_1st_of_month)
+    assert_equal(3, cal.number_days_in_1st_week)
   end
   
   def test_16c_3rd_zellers_congruence
     cal = IndividualMonth.new(2101, 6)
-    assert_equal(3, cal.weekday_of_1st_of_month)
+    assert_equal(4, cal.number_days_in_1st_week)
   end
   
   def test_16d_4th_zellers_congruence
     cal = IndividualMonth.new(1934, 1)
-    assert_equal(1, cal.weekday_of_1st_of_month)
+    assert_equal(6, cal.number_days_in_1st_week)
   end
   
   def test_16e_5th_zellers_congruence
     cal = IndividualMonth.new(1803, 4)
-    assert_equal(5, cal.weekday_of_1st_of_month)
+    assert_equal(2, cal.number_days_in_1st_week)
   end
   
   def test_16f_6th_zeller_congruence
     cal = IndividualMonth.new(2012, 9)
-    assert_equal(6, cal.weekday_of_1st_of_month)
+    assert_equal(1, cal.number_days_in_1st_week)
   end
   
   def test_19a_print_first_line_of_days

@@ -53,7 +53,7 @@ class IndividualMonth
   end
 
   # Zeller's Conrgruence (info: http://en.wikipedia.org/wiki/Zeller%27s_congruence)
-  def weekday_of_1st_of_month
+  def number_days_in_1st_week
     day_of_month = 1 # This will be 1 representing the 1st of the month
     
     # Adjustments: Zeller's treats Jan & Feb as the 13th & 14th months of prev. year
@@ -65,15 +65,14 @@ class IndividualMonth
     
     day_of_week = (day_of_month + adjusted_year + march_adjustment + leap_year_offset) % 7
     
-    # For my purposes 0 = Sun; 1 = Mon;...6 = Sat.
-    weekday_of_1st_of_month = day_of_week != 0 ?  day_of_week - 1 : 6
+    number_days_in_1st_week = day_of_week != 0 ?  8 - day_of_week : 1
   end
 
   def first_line_of_dates
     output = ''
-    (1..7 - weekday_of_1st_of_month).each do |day|
+    (1..number_days_in_1st_week).each do |day|
       output += (day).to_s.rjust(2)
-      output += ' ' unless (day) == (7 - weekday_of_1st_of_month)
+      output += ' ' unless (day) == (number_days_in_1st_week)
     end
     output.rjust(NUM_CHARS_IN_LINE)
   end
@@ -82,7 +81,7 @@ class IndividualMonth
     individual_lines = [] 
     single_line = ''
     k = 1 # "k" will be used to determine when breaks are needed    
-    (8 - weekday_of_1st_of_month).upto(number_days_in_a_month) do |day_of_the_month|
+    (number_days_in_1st_week + 1..number_days_in_a_month).each do |day_of_the_month|
       single_line += day_of_the_month.to_s.rjust(2)
       if (k % 7 != 0 && day_of_the_month != number_days_in_a_month)
         single_line += " "

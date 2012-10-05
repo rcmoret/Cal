@@ -9,24 +9,40 @@ class YearCalTest < Test::Unit::TestCase
     assert_equal(12, actual.size)
   end
   
-  def test_103_check_an_item_in_the_master_array
+  def test_103a_check_an_item_in_the_master_array
     party_like_its_1999 = EntireYear.new(2012)
     year_array = party_like_its_1999.create_year_array
     expected = []
-    expected << "      February      "
-    expected << "Su Mo Tu We Th Fr Sa"
-    expected << "          1  2  3  4"
-    expected << " 5  6  7  8  9 10 11"
-    expected << "12 13 14 15 16 17 18"
-    expected << "19 20 21 22 23 24 25"
-    expected << "26 27 28 29         "
-    expected << "                    "
+    expected << '      February      '
+    expected << 'Su Mo Tu We Th Fr Sa'
+    expected << '          1  2  3  4'
+    expected << ' 5  6  7  8  9 10 11'
+    expected << '12 13 14 15 16 17 18'
+    expected << '19 20 21 22 23 24 25'
+    expected << '26 27 28 29         '
+    expected << '                    '
     actual = year_array[1]
     assert_equal(expected, actual)
   end
   
+  def test_103b_check_an_item_in_the_master_array
+    party_like_its_1999 = EntireYear.new(1999)
+    year_array = party_like_its_1999.create_year_array
+    expected = []
+    expected << '       March        '
+    expected << 'Su Mo Tu We Th Fr Sa'
+    expected << '    1  2  3  4  5  6'
+    expected << ' 7  8  9 10 11 12 13'
+    expected << '14 15 16 17 18 19 20'
+    expected << '21 22 23 24 25 26 27'
+    expected << '28 29 30 31         '
+    expected << '                    '
+    actual = year_array[2]
+    assert_equal(expected, actual)
+  end
+  
   def test_104_what_does_an_individual_month_in_year_look_like
-      party_like_its_1999 = EntireYear.new(1909)
+      party_like_its_1909 = EntireYear.new(1909)
           expected = []
           expected <<         "\n                              1909                              \n" 
           expected <<        "      January               February               March          "
@@ -63,7 +79,7 @@ class YearCalTest < Test::Unit::TestCase
           expected <<        "31                                                                "
           expected <<        "\n"
           
-          actual = party_like_its_1999.finish_whole_year
+          actual = party_like_its_1909.finish_whole_year
           assert_equal(expected, actual)
     end
   
