@@ -80,16 +80,15 @@ class IndividualMonth
   def build_array_of_individual_lines
     individual_lines = [] 
     single_line = ''
-    k = 1 # "k" will be used to determine when breaks are needed    
     (number_days_in_1st_week + 1..number_days_in_a_month).each do |day_of_the_month|
       single_line += day_of_the_month.to_s.rjust(2)
-      if (k % 7 != 0 && day_of_the_month != number_days_in_a_month)
-        single_line += " "
+      end_of_week = (day_of_the_month - number_days_in_1st_week) % 7 != 0 ? false : true
+      if !(end_of_week || day_of_the_month == number_days_in_a_month)
+        single_line += ' '
       else
         individual_lines << single_line.ljust(NUM_CHARS_IN_LINE)
-        single_line = "" 
+        single_line = ''        
       end
-      k += 1
    end
    individual_lines
   end
